@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+
+  iot_frontend:
+    build: ./frontend/.
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_URL_API=http://iot_backend:8080
+
+  iot_backend:
+    build: ./backend/.
+    ports:
+      - "8080:8080"
+    environment:
+      - MONGO_URI=mongodb://root:1234@mongodb:27017
+      - DB_NAME=iot_test
+      - JWT_SECRET=Z161C-Zq£u15lKy+tV<t>WMa?
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 1234
+      MONGO_INITDB_DATABASE: iot_test
+    volumes:
+      - ./backend/mongo-data:/data/db
+
+volumes:
+  mongo-data:
