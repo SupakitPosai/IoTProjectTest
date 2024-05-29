@@ -3,6 +3,6 @@
 
 2. run command in terminal
 ```bash
-docker compose -f "docker-compose.yaml" up -d --build 
+docker compose -f "docker-compose.yml" up -d --build 
 ```
 3. open URL http://localhost:3000/ 
